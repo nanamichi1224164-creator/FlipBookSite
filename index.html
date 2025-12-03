@@ -358,6 +358,20 @@
         $("#flipbook").turn("next");
       });
 
+        // 點擊左半邊 / 右半邊 也能翻頁
+      $("#flipbook").on("click", function (e) {
+        const $this = $(this);
+        const offset = $this.offset();
+        const x = e.pageX - offset.left;     // 點擊位置相對於 flipbook 左邊的距離
+        const half = $this.width() / 2;
+
+        if (x < half) {
+          $this.turn("previous");  // 點左半邊 → 上一頁
+        } else {
+          $this.turn("next");      // 點右半邊 → 下一頁
+        }
+      });
+
       // 鍵盤方向鍵也可以翻頁
       $(document).on("keydown", function (e) {
         if (e.key === "ArrowLeft") {
@@ -370,6 +384,7 @@
   </script>
 </body>
 </html>
+
 
 
 
