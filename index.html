@@ -334,56 +334,57 @@
     </div>
   </div>
 
-  <script>
-    $(function () {
-      if (!$.fn.turn) {
-        alert("turn.js 沒有載入成功，請確認網路或 CDN 是否被擋住。");
-        return;
-      }
+<script>
+  $(function () {
+    if (!$.fn.turn) {
+      alert("turn.js 沒有載入成功，請確認網路或 CDN 是否被擋住。");
+      return;
+    }
 
-      $("#flipbook").turn({
-        width: 1000,
-        height: 800,
-        autoCenter: true,
-        elevation: 50,
-        gradients: true,
-      });
-
-      // 按鈕控制
-      $("#prev").on("click", function () {
-        $("#flipbook").turn("previous");
-      });
-
-      $("#next").on("click", function () {
-        $("#flipbook").turn("next");
-      });
-
-        // 點擊左半邊 / 右半邊 也能翻頁
-      $("#flipbook").on("click", function (e) {
-        const $this = $(this);
-        const offset = $this.offset();
-        const x = e.pageX - offset.left;     // 點擊位置相對於 flipbook 左邊的距離
-        const half = $this.width() / 2;
-
-        if (x < half) {
-          $this.turn("previous");  // 點左半邊 → 上一頁
-        } else {
-          $this.turn("next");      // 點右半邊 → 下一頁
-        }
-      });
-
-      // 鍵盤方向鍵也可以翻頁
-      $(document).on("keydown", function (e) {
-        if (e.key === "ArrowLeft") {
-          $("#flipbook").turn("previous");
-        } else if (e.key === "ArrowRight") {
-          $("#flipbook").turn("next");
-        }
-      });
+    $("#flipbook").turn({
+      width: 1000,
+      height: 800,
+      autoCenter: true,
+      elevation: 50,
+      gradients: true,
     });
-  </script>
+
+    // ✅ 按鈕控制
+    $("#prev").on("click", function () {
+      $("#flipbook").turn("previous");
+    });
+
+    $("#next").on("click", function () {
+      $("#flipbook").turn("next");
+    });
+
+    // ✅ 點擊頁面左右翻頁（最穩定作法）
+    $("#flipbook").on("click", ".page", function (e) {
+      const $book = $("#flipbook");
+      const offset = $book.offset();
+      const x = e.pageX - offset.left;
+      const half = $book.width() / 2;
+
+      if (x < half) {
+        $book.turn("previous");
+      } else {
+        $book.turn("next");
+      }
+    });
+
+    // ✅ 鍵盤方向鍵翻頁
+    $(document).on("keydown", function (e) {
+      if (e.key === "ArrowLeft") {
+        $("#flipbook").turn("previous");
+      } else if (e.key === "ArrowRight") {
+        $("#flipbook").turn("next");
+      }
+    });
+  });
+</script>
 </body>
 </html>
+
 
 
 
