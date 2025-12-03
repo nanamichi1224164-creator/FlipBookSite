@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>46 頁翻頁書本</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- 一定要先載 jQuery，再載 turn.js -->
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
+
+    #container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    /* 書本本體 */
+    #flipbook {
+      width: 960px;   /* 整本書寬度（左右兩頁加起來） */
+      height: 600px;  /* 整本書高度 */
+    }
+
+    #flipbook .page {
+      width: 480px;   /* 半本寬度 */
+      height: 600px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    #flipbook .page img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* 上一頁 / 下一頁 按鈕 */
+    #controls {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    #controls button {
+      padding: 6px 14px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    /* 簡單 RWD：小螢幕自動縮小 */
+    @media (max-width: 1024px) {
+      body {
+        height: auto;
+        padding: 10px;
+      }
+
+      #flipbook {
+        width: 90vw;
+        height: calc(90vw * 0.625); /* 大約 960x600 的比例 */
+      }
+
+      #flipbook .page {
+        width: 50%;
+        height: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <!-- 翻頁書本 -->
+    <div id="flipbook">
+      <!-- ⬇⬇⬇ 下面這 46 個 .page 就是 46 頁，請把 src 換成你的圖片路徑 ⬇⬇⬇ -->
+
+      <!-- 第 1 頁 -->
+      <div class="page">
+        <img src="1.jpg" alt="Page 1" />
+      </div>
+
+      <!-- 第 2 頁 -->
+      <div class="page">
+        <img src="2.jpg" alt="Page 2" />
+      </div>
+
+      <!-- 第 3 頁 -->
+      <div class="page">
+        <!-- 在這裡貼你的第 3 張圖片路徑 -->
+        <img src="3.jpg" alt="Page 3" />
+      </div>
+
+      <!-- 第 4 頁 -->
+      <div class="page">
+        <img src="4.jpg" alt="Page 4" />
+      </div>
+
+      <!-- 第 5 頁 -->
+      <div class="page">
+        <img src="5.jpg" alt="Page 5" />
+      </div>
+
+      <!-- 第 6 頁 -->
+      <div class="page">
+        <img src="images/page06.jpg" alt="Page 6" />
+      </div>
+
+      <!-- 第 7 頁 -->
+      <div class="page">
+        <img src="images/page07.jpg" alt="Page 7" />
+      </div>
+
+      <!-- 第 8 頁 -->
+      <div class="page">
+        <img src="images/page08.jpg" alt="Page 8" />
+      </div>
+
+      <!-- 第 9 頁 -->
+      <div class="page">
+        <img src="images/page09.jpg" alt="Page 9" />
+      </div>
+
+      <!-- 第 10 頁 -->
+      <div class="page">
+        <img src="images/page10.jpg" alt="Page 10" />
+      </div>
+
+      <!-- 第 11 頁 -->
+      <div class="page">
+        <img src="images/page11.jpg" alt="Page 11" />
+      </div>
+
+      <!-- 第 12 頁 -->
+      <div class="page">
+        <img src="images/page12.jpg" alt="Page 12" />
+      </div>
+
+      <!-- 第 13 頁 -->
+      <div class="page">
+        <img src="images/page13.jpg" alt="Page 13" />
+      </div>
+
+      <!-- 第 14 頁 -->
+      <div class="page">
+        <img src="images/page14.jpg" alt="Page 14" />
+      </div>
+
+      <!-- 第 15 頁 -->
+      <div class="page">
+        <img src="images/page15.jpg" alt="Page 15" />
+      </div>
+
+      <!-- 第 16 頁 -->
+      <div class="page">
+        <img src="images/page16.jpg" alt="Page 16" />
+      </div>
+
+      <!-- 第 17 頁 -->
+      <div class="page">
+        <img src="images/page17.jpg" alt="Page 17" />
+      </div>
+
+      <!-- 第 18 頁 -->
+      <div class="page">
+        <img src="images/page18.jpg" alt="Page 18" />
+      </div>
+
+      <!-- 第 19 頁 -->
+      <div class="page">
+        <img src="images/page19.jpg" alt="Page 19" />
+      </div>
+
+      <!-- 第 20 頁 -->
+      <div class="page">
+        <img src="images/page20.jpg" alt="Page 20" />
+      </div>
+
+      <!-- 第 21 頁 -->
+      <div class="page">
+        <img src="images/page21.jpg" alt="Page 21" />
+      </div>
+
+      <!-- 第 22 頁 -->
+      <div class="page">
+        <img src="images/page22.jpg" alt="Page 22" />
+      </div>
+
+      <!-- 第 23 頁 -->
+      <div class="page">
+        <img src="images/page23.jpg" alt="Page 23" />
+      </div>
+
+      <!-- 第 24 頁 -->
+      <div class="page">
+        <img src="images/page24.jpg" alt="Page 24" />
+      </div>
+
+      <!-- 第 25 頁 -->
+      <div class="page">
+        <img src="images/page25.jpg" alt="Page 25" />
+      </div>
+
+      <!-- 第 26 頁 -->
+      <div class="page">
+        <img src="images/page26.jpg" alt="Page 26" />
+      </div>
+
+      <!-- 第 27 頁 -->
+      <div class="page">
+        <img src="images/page27.jpg" alt="Page 27" />
+      </div>
+
+      <!-- 第 28 頁 -->
+      <div class="page">
+        <img src="images/page28.jpg" alt="Page 28" />
+      </div>
+
+      <!-- 第 29 頁 -->
+      <div class="page">
+        <img src="images/page29.jpg" alt="Page 29" />
+      </div>
+
+      <!-- 第 30 頁 -->
+      <div class="page">
+        <img src="images/page30.jpg" alt="Page 30" />
+      </div>
+
+      <!-- 第 31 頁 -->
+      <div class="page">
+        <img src="images/page31.jpg" alt="Page 31" />
+      </div>
+
+      <!-- 第 32 頁 -->
+      <div class="page">
+        <img src="images/page32.jpg" alt="Page 32" />
+      </div>
+
+      <!-- 第 33 頁 -->
+      <div class="page">
+        <img src="images/page33.jpg" alt="Page 33" />
+      </div>
+
+      <!-- 第 34 頁 -->
+      <div class="page">
+        <img src="images/page34.jpg" alt="Page 34" />
+      </div>
+
+      <!-- 第 35 頁 -->
+      <div class="page">
+        <img src="images/page35.jpg" alt="Page 35" />
+      </div>
+
+      <!-- 第 36 頁 -->
+      <div class="page">
+        <img src="images/page36.jpg" alt="Page 36" />
+      </div>
+
+      <!-- 第 37 頁 -->
+      <div class="page">
+        <img src="images/page37.jpg" alt="Page 37" />
+      </div>
+
+      <!-- 第 38 頁 -->
+      <div class="page">
+        <img src="images/page38.jpg" alt="Page 38" />
+      </div>
+
+      <!-- 第 39 頁 -->
+      <div class="page">
+        <img src="images/page39.jpg" alt="Page 39" />
+      </div>
+
+      <!-- 第 40 頁 -->
+      <div class="page">
+        <img src="images/page40.jpg" alt="Page 40" />
+      </div>
+
+      <!-- 第 41 頁 -->
+      <div class="page">
+        <img src="images/page41.jpg" alt="Page 41" />
+      </div>
+
+      <!-- 第 42 頁 -->
+      <div class="page">
+        <img src="images/page42.jpg" alt="Page 42" />
+      </div>
+
+      <!-- 第 43 頁 -->
+      <div class="page">
+        <img src="images/page43.jpg" alt="Page 43" />
+      </div>
+
+      <!-- 第 44 頁 -->
+      <div class="page">
+        <img src="images/page44.jpg" alt="Page 44" />
+      </div>
+
+      <!-- 第 45 頁 -->
+      <div class="page">
+        <img src="images/page45.jpg" alt="Page 45" />
+      </div>
+
+      <!-- 第 46 頁 -->
+      <div class="page">
+        <img src="images/page46.jpg" alt="Page 46" />
+      </div>
+
+      <!-- ⬆⬆⬆ 圖片只要換這裡的 src 就好 ⬆⬆⬆ -->
+    </div>
+
+    <!-- 操作按鈕（也可以用滑鼠拖左右頁角） -->
+    <div id="controls">
+      <button id="prev">上一頁</button>
+      <button id="next">下一頁</button>
+    </div>
+  </div>
+
+  <script>
+    $(function () {
+      if (!$.fn.turn) {
+        alert("turn.js 沒有載入成功，請確認網路或 CDN 是否被擋住。");
+        return;
+      }
+
+      $("#flipbook").turn({
+        width: 960,
+        height: 600,
+        autoCenter: true,
+        elevation: 50,
+        gradients: true,
+      });
+
+      // 按鈕控制
+      $("#prev").on("click", function () {
+        $("#flipbook").turn("previous");
+      });
+
+      $("#next").on("click", function () {
+        $("#flipbook").turn("next");
+      });
+
+      // 鍵盤方向鍵也可以翻頁
+      $(document).on("keydown", function (e) {
+        if (e.key === "ArrowLeft") {
+          $("#flipbook").turn("previous");
+        } else if (e.key === "ArrowRight") {
+          $("#flipbook").turn("next");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
