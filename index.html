@@ -51,7 +51,7 @@
     #flipbook .page img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       display: block;
     }
 
@@ -79,7 +79,7 @@
 
       #flipbook {
         width: 90vw;
-        height: calc(90vw * 0.625); /* 大約 960x600 的比例 */
+        height: calc(90vw * 0.707); /* 大約 960x600 的比例 */
       }
 
       #flipbook .page {
@@ -342,8 +342,8 @@
       }
 
       $("#flipbook").turn({
-        width: 960,
-        height: 600,
+        width: 1000,
+        height: 707,
         autoCenter: true,
         elevation: 50,
         gradients: true,
@@ -370,6 +370,7 @@
   </script>
 </body>
 </html>
+
 
 
 
