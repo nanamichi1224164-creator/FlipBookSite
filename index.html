@@ -37,8 +37,11 @@
 
     /* 書本本體 */
     #flipbook {
-      width: 1000px;   /* 整本書寬度（左右兩頁加起來） */
-      height: 800px;  /* 整本書高度 */
+      width: 1000px;
+      height: 800px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25); /* ✅ 書本陰影 */
+      border-radius: 8px;                        /* ✅ 書邊圓角 */
+      background: #fff;                          /* ✅ 書外框白色 */
     }
 
     #flipbook .page {
@@ -69,6 +72,20 @@
       border: none;
       cursor: pointer;
       font-size: 14px;
+    }
+
+    #pageIndicator {
+      font-size: 16px;
+      font-weight: 600;
+      min-width: 70px;
+      text-align: center;
+    }
+
+    #pageInput {
+      width: 70px;
+      padding: 4px 6px;
+      font-size: 14px;
+      text-align: center;
     }
 
     /* 簡單 RWD：小螢幕自動縮小 */
@@ -328,9 +345,19 @@
       
     </div>
 
-    <!-- 操作按鈕（也可以用滑鼠拖左右頁角） -->
+
     <div id="controls">
       <button id="prev">上一頁</button>
+      <span id="pageIndicator">1/46</span>
+      <input
+        id="pageInput"
+        type="number"
+        min="1"
+        max"46"
+        placeholder="跳到"
+      />
+      <button id="goPage">GO</button>
+            
       <button id="next">下一頁</button>
     </div>
   </div>
@@ -343,16 +370,26 @@ $(function () {
   }
 
   const $book = $("#flipbook");
+  const totalPages = 46;
 
+  // ✅ 初始化翻頁書
   $book.turn({
     width: 1000,
     height: 800,
     autoCenter: true,
     elevation: 50,
     gradients: true,
+    when: {
+      turned: function (event, page) {
+        $("#pageIndicator").text(page + " / " + totalPages);
+      }
+    }
   });
 
-  // ✅ 按鈕控制
+  // ✅ 初始化顯示頁碼
+  $("#pageIndicator").text("1 / " + totalPages);
+
+  // ✅ 上一頁 / 下一頁 按鈕
   $("#prev").on("click", function () {
     $book.turn("previous");
   });
@@ -361,7 +398,7 @@ $(function () {
     $book.turn("next");
   });
 
-  // ✅ 點擊左右翻頁
+  // ✅ 點擊頁面左右翻頁
   $book.on("click", ".page", function (e) {
     const offset = $book.offset();
     const x = e.pageX - offset.left;
@@ -374,31 +411,20 @@ $(function () {
     }
   });
 
-  // ✅ 模擬「滑鼠拖曳翻頁」（取代 turn.js 原生拖曳）
-  let startX = null;
+  // ✅ 跳頁功能
+  $("#goPage").on("click", function () {
+    const value = parseInt($("#pageInput").val(), 10);
 
-  $book.on("mousedown", function (e) {
-    startX = e.pageX;
-  });
-
-  $(document).on("mouseup", function (e) {
-    if (startX === null) return;
-
-    const endX = e.pageX;
-    const diff = endX - startX;
-
-    if (diff > 80) {
-      // 👉 向右拖 → 上一頁
-      $book.turn("previous");
-    } else if (diff < -80) {
-      // 👉 向左拖 → 下一頁
-      $book.turn("next");
+    if (!isNaN(value) && value >= 1 && value <= totalPages) {
+      $book.turn("page", value);
+    } else {
+      alert("請輸入 1 到 " + totalPages + " 之間的頁碼");
     }
 
-    startX = null;
+    $("#pageInput").val("");
   });
 
-  // ✅ 鍵盤方向鍵
+  // ✅ 鍵盤方向鍵翻頁
   $(document).on("keydown", function (e) {
     if (e.key === "ArrowLeft") {
       $book.turn("previous");
@@ -410,6 +436,7 @@ $(function () {
 </script>
 </body>
 </html>
+
 
 
 
