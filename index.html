@@ -42,6 +42,7 @@
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25); /* ✅ 書本陰影 */
       border-radius: 8px;                        /* ✅ 書邊圓角 */
       background: #fff;                          /* ✅ 書外框白色 */
+      position: relative;
     }
 
     #flipbook .page {
@@ -86,6 +87,25 @@
       padding: 4px 6px;
       font-size: 14px;
       text-align: center;
+    }
+
+    /* 書本中間釘裝陰影（凹陷感） */
+    #flipbook::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;               /* 陰影寬度（可調：20~60） */
+      height: 100%;
+      pointer-events: none;
+      background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.05),
+        rgba(0, 0, 0, 0.15)
+      );
+      z-index: 10;
     }
 
     /* 簡單 RWD：小螢幕自動縮小 */
@@ -436,4 +456,5 @@ $(function () {
 </script>
 </body>
 </html>
+
 
