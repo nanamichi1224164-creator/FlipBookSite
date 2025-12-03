@@ -38,7 +38,7 @@
     /* 書本本體 */
     #flipbook {
       width: 1000px;
-      height: 800px;
+      height: 707px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25); /* ✅ 書本陰影 */
       border-radius: 8px;                        /* ✅ 書邊圓角 */
       background: #fff;                          /* ✅ 書外框白色 */
@@ -46,7 +46,7 @@
 
     #flipbook .page {
       width: 500px;   /* 半本寬度 */
-      height: 800px;
+      height: 707px;
       background: #fff;
       overflow: hidden;
     }
@@ -97,7 +97,7 @@
 
       #flipbook {
         width: 90vw;
-        height: calc(90vw * 0.800); /* 大約 960x600 的比例 */
+        height: calc(90vw * 0.707); /* 大約 960x600 的比例 */
       }
 
       #flipbook .page {
@@ -353,7 +353,7 @@
         id="pageInput"
         type="number"
         min="1"
-        max"46"
+        max="46"
         placeholder="跳到"
       />
       <button id="goPage">GO</button>
@@ -375,7 +375,7 @@ $(function () {
   // ✅ 初始化翻頁書
   $book.turn({
     width: 1000,
-    height: 800,
+    height: 707,
     autoCenter: true,
     elevation: 50,
     gradients: true,
@@ -436,6 +436,7 @@ $(function () {
 </script>
 </body>
 </html>
+
 
 
 
